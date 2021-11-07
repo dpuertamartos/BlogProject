@@ -33,6 +33,17 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
+
+##CREATE TABLE IN DB (PARENT TABLE)
+class User(UserMixin, db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
+    name = db.Column(db.String(1000))
+
+    posts = relationship("BlogPost", back_populates="author")
+    comments = relationship("Comment", back_populates="comment_author")
 ##CONFIGURE TABLES
 
 class BlogPost(db.Model):
@@ -48,19 +59,6 @@ class BlogPost(db.Model):
 
     author = relationship("User", back_populates="posts")
     comments = relationship("Comment", back_populates="parent_post")
-
-
-##CREATE TABLE IN DB (PARENT TABLE)
-class User(UserMixin, db.Model):
-    __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
-    name = db.Column(db.String(1000))
-
-    posts = relationship("BlogPost", back_populates="author")
-    comments = relationship("Comment", back_populates="comment_author")
-
 
 class Comment(db.Model):
     __tablename__ = "comments"
