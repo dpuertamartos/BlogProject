@@ -10,9 +10,7 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
 import os
-from dotenv import load_dotenv
 
-load_dotenv("C:/Users/David/env/.env")
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY_BLOG")
 ckeditor = CKEditor(app)
